@@ -7,7 +7,7 @@ public class huffmanCoding {
 
     static huffmanFreq<Character> charFreq(String str) {
         String tempString = str;
-        huffmanFreq<Character> charHuffmanFreq = new huffmanFreq<Character>();
+        huffmanFreq<Character> charHuffmanFreq = new huffmanFreq<>();
         while (!tempString.isEmpty()) {
             charHuffmanFreq.insert(tempString.charAt(0));
             tempString = tempString.substring(1);
