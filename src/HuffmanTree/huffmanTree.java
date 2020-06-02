@@ -5,15 +5,16 @@ public class huffmanTree {
 
     /**
      * 用字符频数映射表初始话Huffman树
+     *
      * @param freq 字符频数映射表
      */
     public huffmanTree(huffmanFreq freq) {
-        this.root = huffmanTreeNode.convertHuffmanTree(freq);
-        String[] code = new String[freq.getSize()];
+        this.root = huffmanTreeNode.convertHuffmanTree(freq, huffmanTreeNode.AVERAGE);
     }
 
     /**
      * 获取根节点
+     *
      * @return 根节点
      */
     public huffmanTreeNode getRoot() {

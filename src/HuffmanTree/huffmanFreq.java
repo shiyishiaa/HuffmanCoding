@@ -115,12 +115,13 @@ public class huffmanFreq {
     }
 
     /**
-     * 插入映射并保持有序
+     * 插入映射并保持有序(插入在同频数字符前)
      *
      * @param key  键
      * @param freq 频数
      */
-    public void insert(String key, int freq) {
+    @SuppressWarnings("unused")
+    public void insertRugged(String key, int freq) {
         //if key already exists. add freq
         for (int i = 0; i < this.key.length; i++) {
             if (this.key[i].equals(key)) {
@@ -129,7 +130,37 @@ public class huffmanFreq {
                 return;
             }
         }
-        //else insert according to the frequency (less)
+        //else insertRugged according to the frequency (less)
+        if (this.freq.length == 0) {
+            insertAt(key, freq, 1);
+        } else {
+            for (int posi = 1; posi <= this.size; posi++) {
+                if (freq <= this.getFreq(posi)) {
+                    insertAt(key, freq, posi - 1);
+                    return;
+                }
+            }
+            insertAt(key, freq, this.size);
+        }
+    }
+
+    /**
+     * 插入映射并保持有序(插入在同频数字符后)
+     *
+     * @param key  键
+     * @param freq 频数
+     */
+    @SuppressWarnings("unused")
+    public void insertAverage(String key, int freq) {
+        //if key already exists. add freq
+        for (int i = 0; i < this.key.length; i++) {
+            if (this.key[i].equals(key)) {
+                this.freq[i] += freq;
+                sortLess();
+                return;
+            }
+        }
+        //else insertRugged according to the frequency (less)
         if (this.freq.length == 0) {
             insertAt(key, freq, 1);
         } else {
@@ -144,12 +175,23 @@ public class huffmanFreq {
     }
 
     /**
-     * 只添加键，频数默认加一
+     * 只添加键，频数默认加一(Rugged方式)
      *
      * @param key 键
      */
-    public void insert(String key) {
-        insert(key, 1);
+    @SuppressWarnings("unused")
+    public void insertRugged(String key) {
+        insertRugged(key, 1);
+    }
+
+    /**
+     * 只添加键，频数默认加一(Average方式)
+     *
+     * @param key 键
+     */
+    @SuppressWarnings("unused")
+    public void insertAverage(String key) {
+        insertAverage(key, 1);
     }
 
     /**

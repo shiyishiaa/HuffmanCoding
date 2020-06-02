@@ -36,7 +36,7 @@ public class HuffmanCoding {
         if (str == null) return null;
         huffmanFreq charHuffmanFreq = new huffmanFreq();
         while (!str.isEmpty()) {
-            charHuffmanFreq.insert(str.substring(0, 1));
+            charHuffmanFreq.insertRugged(str.substring(0, 1));
             str = str.substring(1);
         }
         return charHuffmanFreq;
