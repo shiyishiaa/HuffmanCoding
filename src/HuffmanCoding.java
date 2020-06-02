@@ -105,6 +105,10 @@ public class HuffmanCoding {
      * @param lastLongestString 上次最长的字符串
      */
     private static void coding(String[] strings, Map<String, String> map, int offset, String lastLongestString) {
+        if (strings.length == 1 && strings[0].equals(lastLongestString)) {
+            map.put(strings[0], Math.random() > 0.5 ? "1" : "0");
+            return;
+        }
         // 查找字符串出现位置
         int longestIndex = findLongest(strings);
         // 根据偏移量来判断新的节点的编码
