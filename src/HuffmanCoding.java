@@ -6,14 +6,24 @@ public class HuffmanCoding {
     private static final int HUFFMAN_INITIAL_OFFSET = 0;
 
     public static void main(String[] args) {
-        String str;
-        if (args.length == 0) {
-            System.out.println("Input String:");
-            Scanner sc = new Scanner(System.in);
-            str = sc.nextLine();
-        } else
-            str = args[0];
-        huffmanCoding(str);
+        boolean isFirst = true;
+        while (true) {
+            String str;
+            if (args.length != 0 && isFirst)
+                str = args[0];
+            else {
+                System.out.println("Input String:");
+                Scanner sc = new Scanner(System.in);
+                str = sc.nextLine();
+            }
+            huffmanCoding(str);
+            System.out.println("Continue?(Y/N)");
+            Scanner Continue = new Scanner(System.in);
+            if ("N".equals(Continue.nextLine()))
+                break;
+            else
+                isFirst = false;
+        }
     }
 
     /**
