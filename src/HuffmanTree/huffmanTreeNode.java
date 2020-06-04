@@ -70,16 +70,16 @@ public class huffmanTreeNode {
     public static String traverseIn_Stack(huffmanTreeNode node) {
         if (!node.hasData()) return null;
         StringBuilder treeString = new StringBuilder();
-        huffmanTreeNode cur = node;
+        huffmanTreeNode pointer = node;
         Stack<huffmanTreeNode> stack = new Stack<>();
-        while (!stack.isEmpty() || cur != null) {
-            if (cur != null) {
-                stack.push(cur);
-                cur = cur.left;
+        while (!stack.isEmpty() || pointer != null) {
+            if (pointer != null) {
+                stack.push(pointer);
+                pointer = pointer.left;
             } else {
-                cur = stack.pop();
-                treeString.append(cur.str);
-                cur = cur.right;
+                pointer = stack.pop();
+                treeString.append(pointer.str);
+                pointer = pointer.right;
             }
         }
         return treeString.toString();
@@ -105,12 +105,14 @@ public class huffmanTreeNode {
             newNode.setLeft(nodeFamily[0]);
             newNode.setRight(nodeFamily[1]);
 
-            if (mode == RUGGED)
-                newFreq.insertRugged(newFreq.getKey(1) + newFreq.getKey(2),
+            switch (mode) {
+                case RUGGED -> newFreq.insertRugged(
+                        newFreq.getKey(1) + newFreq.getKey(2),
                         newFreq.getFreq(1) + newFreq.getFreq(2));
-            else if (mode == AVERAGE)
-                newFreq.insertAverage(newFreq.getKey(1) + newFreq.getKey(2),
+                case AVERAGE -> newFreq.insertAverage(
+                        newFreq.getKey(1) + newFreq.getKey(2),
                         newFreq.getFreq(1) + newFreq.getFreq(2));
+            }
             newFreq.removeAmong(1, 2);
 
             int posi = newFreq.contain(newNode.getStr());

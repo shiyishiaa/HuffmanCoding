@@ -2,9 +2,21 @@ import HuffmanTree.*;
 
 import java.util.*;
 
-public class HuffmanCoding {
-    private static final int HUFFMAN_INITIAL_OFFSET = 0;
+enum HuffmanOffset {
+    initial(0), up(-1), down(1);
 
+    private final int value;
+
+    HuffmanOffset(int value) {
+        this.value = value;
+    }
+
+    public int value() {
+        return this.value;
+    }
+}
+
+public class HuffmanCoding {
     public static void main(String[] args) {
         boolean isFirst = true;
         while (true) {
@@ -54,7 +66,7 @@ public class HuffmanCoding {
         String[] keys = flow.substring(4, flow.length() - 4).split("null");
         for (String key : keys) codeMap.put(key, "");
         int rootIndex = findLongest(keys);
-        coding(keys, codeMap, HUFFMAN_INITIAL_OFFSET, keys[rootIndex]);
+        coding(keys, codeMap, HuffmanOffset.initial.value(), keys[rootIndex]);
         for (String key : keys) if (key.length() != 1) codeMap.remove(key);
         return codeMap;
     }
@@ -79,24 +91,6 @@ public class HuffmanCoding {
     }
 
     /**
-     * 查找字符串数组中是否含有某个字符串
-     * 没有就返回-1，有就返回第一个该字符串的下标
-     *
-     * @param strings 字符串数组
-     * @param toFind  待查证字符串
-     * @return -1或下标
-     */
-    public static int findString(String[] strings, String toFind) {
-        if (strings == null) return -1;
-        for (int i = 0; i < strings.length; i++) {
-            if (toFind.equals(strings[i])) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
      * 对Huffman数组进行编码
      *
      * @param strings           Huffman树组
@@ -105,6 +99,7 @@ public class HuffmanCoding {
      * @param lastLongestString 上次最长的字符串
      */
     private static void coding(String[] strings, Map<String, String> map, int offset, String lastLongestString) {
+        if (strings == null) return;
         if (strings.length == 1 && strings[0].equals(lastLongestString)) {
             map.put(strings[0], Math.random() > 0.5 ? "1" : "0");
             return;
@@ -112,12 +107,16 @@ public class HuffmanCoding {
         // 查找字符串出现位置
         int longestIndex = findLongest(strings);
         // 根据偏移量来判断新的节点的编码
-        String newCode = "";
-        if (offset < 0)
-            newCode = map.get(lastLongestString) + "1";
-        else if (offset > 0)
-            newCode = map.get(lastLongestString) + "0";
-        map.put(strings[longestIndex], newCode);
+        switch (offset) {
+            case 0 -> map.put(strings[longestIndex],
+                    "");
+            case -1 -> map.put(strings[longestIndex],
+                    map.get(lastLongestString) +
+                            "1");
+            case 1 -> map.put(strings[longestIndex],
+                    map.get(lastLongestString) +
+                            "0");
+        }
         // 该节点不是单字节，则把原字符串数组按最长位置分开成两部分，分别递归
         if (strings.length != 1) {
             // 上段数组和下段数组
@@ -126,12 +125,9 @@ public class HuffmanCoding {
             // 复制原数组内容
             System.arraycopy(strings, 0, up, 0, up.length);
             System.arraycopy(strings, longestIndex + 1, down, 0, down.length);
-            // 计算现数组最长字符串与原最长字符串的偏移值
-            int upOffset = findString(strings, up[findLongest(up)]) - longestIndex;
-            int downOffset = findString(strings, down[findLongest(down)]) - longestIndex;
             // 递归
-            coding(up, map, upOffset, strings[longestIndex]);
-            coding(down, map, downOffset, strings[longestIndex]);
+            coding(up, map, HuffmanOffset.up.value(), strings[longestIndex]);
+            coding(down, map, HuffmanOffset.down.value(), strings[longestIndex]);
         }
     }
 
@@ -159,7 +155,8 @@ public class HuffmanCoding {
         if (str == null) return "WRONG STRING";
         String huffmanStr = "";
         while (str.length() > 0) {
-            if (!map.getOrDefault(str.substring(0, 1), "NOT_FOUND").equals("NOT_FOUND")) {
+            if (!map.getOrDefault(str.substring(0, 1), "NOT_FOUND").
+                    equals("NOT_FOUND")) {
                 huffmanStr += map.get(str.substring(0, 1));
                 str = str.substring(1);
             } else return "WRONG MAP";
