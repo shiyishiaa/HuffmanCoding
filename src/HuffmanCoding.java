@@ -2,7 +2,7 @@ import HuffmanTree.*;
 
 import java.util.*;
 
-enum HuffmanOffset {
+enum offset {
     initial, up, down
 }
 
@@ -56,7 +56,7 @@ public class HuffmanCoding {
         String[] keys = flow.substring(4, flow.length() - 4).split("null");
         for (String key : keys) codeMap.put(key, "");
         int rootIndex = findLongest(keys);
-        coding(keys, codeMap, HuffmanOffset.initial, keys[rootIndex]);
+        coding(keys, codeMap, offset.initial, keys[rootIndex]);
         for (String key : keys) if (key.length() != 1) codeMap.remove(key);
         return codeMap;
     }
@@ -85,10 +85,10 @@ public class HuffmanCoding {
      *
      * @param strings           Huffman树组
      * @param map               储存映射表
-     * @param offset            偏移值，初始恒为HUFFMAN_INITIAL_OFFSET（0）
+     * @param off            偏移值，初始恒为HUFFMAN_INITIAL_OFFSET（0）
      * @param lastLongestString 上次最长的字符串
      */
-    private static void coding(String[] strings, Map<String, String> map, HuffmanOffset offset, String lastLongestString) {
+    private static void coding(String[] strings, Map<String, String> map, offset off, String lastLongestString) {
         if (strings == null) return;
         if (strings.length == 1 && strings[0].equals(lastLongestString)) {
             map.put(strings[0], Math.random() > 0.5 ? "1" : "0");
@@ -97,7 +97,7 @@ public class HuffmanCoding {
         // 查找字符串出现位置
         int longestIndex = findLongest(strings);
         // 根据偏移量来判断新的节点的编码
-        switch (offset) {
+        switch (off) {
             case initial -> map.put(strings[longestIndex], "");
             case up -> map.put(strings[longestIndex], map.get(lastLongestString) + "1");
             case down -> map.put(strings[longestIndex], map.get(lastLongestString) + "0");
@@ -111,8 +111,8 @@ public class HuffmanCoding {
             System.arraycopy(strings, 0, up, 0, up.length);
             System.arraycopy(strings, longestIndex + 1, down, 0, down.length);
             // 递归
-            coding(up, map, HuffmanOffset.up, strings[longestIndex]);
-            coding(down, map, HuffmanOffset.down, strings[longestIndex]);
+            coding(up, map, offset.up, strings[longestIndex]);
+            coding(down, map, offset.down, strings[longestIndex]);
         }
     }
 
