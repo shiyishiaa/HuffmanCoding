@@ -9,7 +9,7 @@ public class huffmanTree {
      * @param freq 字符频数映射表
      */
     public huffmanTree(huffmanFreq freq) {
-        this.root = huffmanTreeNode.convertHuffmanTree(freq, huffmanTreeNode.RUGGED);
+        this.root = huffmanTreeNode.convertHuffmanTree(freq, insertMode.RUGGED);
     }
 
     /**

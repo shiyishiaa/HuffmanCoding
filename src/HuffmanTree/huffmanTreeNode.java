@@ -5,8 +5,6 @@ import java.util.Stack;
 public class huffmanTreeNode {
     private huffmanTreeNode left, right;
     private String str;
-    @SuppressWarnings("unused")
-    public static final int AVERAGE = 0, RUGGED = 1;
 
     /**
      * Huffman节点默认初始化
@@ -91,7 +89,7 @@ public class huffmanTreeNode {
      * @param freq 字符频数映射表
      * @return Huffman树的根节点
      */
-    public static huffmanTreeNode convertHuffmanTree(huffmanFreq freq, int mode) {
+    public static huffmanTreeNode convertHuffmanTree(huffmanFreq freq, insertMode mode) {
         if (freq == null) return null;
         //把键存入节点数组中
         huffmanTreeNode[] nodeFamily = new huffmanTreeNode[freq.getSize()];
@@ -125,4 +123,8 @@ public class huffmanTreeNode {
         }
         return nodeFamily[0];
     }
+}
+
+enum insertMode{
+    AVERAGE,RUGGED
 }

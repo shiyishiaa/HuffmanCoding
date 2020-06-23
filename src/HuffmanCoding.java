@@ -2,10 +2,6 @@ import HuffmanTree.*;
 
 import java.util.*;
 
-enum offset {
-    initial, up, down
-}
-
 public class HuffmanCoding {
     public static void main(String[] args) {
         boolean isFirst = true;
@@ -85,7 +81,7 @@ public class HuffmanCoding {
      *
      * @param strings           Huffman树组
      * @param map               储存映射表
-     * @param off            偏移值，初始恒为HUFFMAN_INITIAL_OFFSET（0）
+     * @param off               偏移值，初始恒为HUFFMAN_INITIAL_OFFSET（0）
      * @param lastLongestString 上次最长的字符串
      */
     private static void coding(String[] strings, Map<String, String> map, offset off, String lastLongestString) {
@@ -166,4 +162,8 @@ public class HuffmanCoding {
         System.out.println("Huffman coding: \t" + huffmanCoding(str, code));
         return huffmanCoding(str, code);
     }
+}
+
+enum offset {
+    initial, up, down
 }

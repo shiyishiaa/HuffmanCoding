@@ -120,7 +120,6 @@ public class huffmanFreq {
      * @param key  键
      * @param freq 频数
      */
-    @SuppressWarnings("unused")
     public void insertRugged(String key, int freq) {
         //if key already exists. add freq
         for (int i = 0; i < this.key.length; i++) {
@@ -150,7 +149,6 @@ public class huffmanFreq {
      * @param key  键
      * @param freq 频数
      */
-    @SuppressWarnings("unused")
     public void insertAverage(String key, int freq) {
         //if key already exists. add freq
         for (int i = 0; i < this.key.length; i++) {
@@ -179,7 +177,6 @@ public class huffmanFreq {
      *
      * @param key 键
      */
-    @SuppressWarnings("unused")
     public void insertRugged(String key) {
         insertRugged(key, 1);
     }
@@ -189,7 +186,6 @@ public class huffmanFreq {
      *
      * @param key 键
      */
-    @SuppressWarnings("unused")
     public void insertAverage(String key) {
         insertAverage(key, 1);
     }
