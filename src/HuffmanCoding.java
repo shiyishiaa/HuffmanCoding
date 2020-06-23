@@ -162,8 +162,8 @@ public class HuffmanCoding {
         String treeString = huffmanTree.traverseIn_Stack(charTree.getRoot());
         Map<String, String> code = flowToCode(treeString);
         printHuffmanMap(code);
-        System.out.println("Original string: " + str);
-        System.out.println("Huffman coding: " + huffmanCoding(str, code));
+        System.out.println("Original string: \t" + str);
+        System.out.println("Huffman coding: \t" + huffmanCoding(str, code));
         return huffmanCoding(str, code);
     }
 }
