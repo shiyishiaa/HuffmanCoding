@@ -66,7 +66,7 @@ public class huffmanTreeNode {
      * @return Huffman树（String形式）
      */
     public static String traverseIn_Stack(huffmanTreeNode node) {
-        if (!node.hasData()) return null;
+        if (node == null) return null;
         StringBuilder treeString = new StringBuilder();
         huffmanTreeNode pointer = node;
         Stack<huffmanTreeNode> stack = new Stack<>();
@@ -125,6 +125,6 @@ public class huffmanTreeNode {
     }
 }
 
-enum insertMode{
-    AVERAGE,RUGGED
+enum insertMode {
+    AVERAGE, RUGGED
 }
