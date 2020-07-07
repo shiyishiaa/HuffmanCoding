@@ -1,26 +1,31 @@
 import HuffmanTree.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class HuffmanCoding {
     public static void main(String[] args) {
-        boolean isFirst = true;
-        while (true) {
-            String str;
-            if (args.length != 0 && isFirst)
-                str = args[0];
-            else {
-                System.out.println("Input String:");
-                Scanner sc = new Scanner(System.in);
-                str = sc.nextLine();
+        try {
+            boolean isFirst = true;
+            while (true) {
+                String str;
+                if (args.length != 0 && isFirst)
+                    str = args[0];
+                else {
+                    System.out.println("Input String:");
+                    Scanner sc = new Scanner(System.in);
+                    str = sc.nextLine();
+                }
+                huffmanCoding(str);
+                System.out.println("Continue?(Y/N)");
+                Scanner Continue = new Scanner(System.in);
+                if ("N".equals(Continue.nextLine()))
+                    break;
+                else
+                    isFirst = false;
             }
-            huffmanCoding(str);
-            System.out.println("Continue?(Y/N)");
-            Scanner Continue = new Scanner(System.in);
-            if ("N".equals(Continue.nextLine()))
-                break;
-            else
-                isFirst = false;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
