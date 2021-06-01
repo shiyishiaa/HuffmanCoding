@@ -1,6 +1,6 @@
-package HuffmanTree;
+package jnu.norman.huffman;
 
-public class huffmanFreq {
+public class HuffmanFreq {
     private int size;
     private String[] key;
     private int[] freq;
@@ -8,7 +8,7 @@ public class huffmanFreq {
     /**
      * 默认初始化
      */
-    public huffmanFreq() {
+    public HuffmanFreq() {
         this.size = 0;
         this.freq = new int[0];
         this.key = new String[0];
@@ -29,9 +29,11 @@ public class huffmanFreq {
      * @param freq 源表
      * @return 复制结果
      */
-    public static huffmanFreq copy(huffmanFreq freq) {
-        if (freq == null) return null;
-        huffmanFreq newFreq = new huffmanFreq();
+    public static HuffmanFreq copy(HuffmanFreq freq) {
+        if (freq == null) {
+            return null;
+        }
+        var newFreq = new HuffmanFreq();
         newFreq.size = freq.getSize();
         newFreq.freq = freq.getFreq();
         newFreq.key = freq.getKey();
@@ -63,10 +65,11 @@ public class huffmanFreq {
      * @return 频数
      */
     public int getFreq(int posi) {
-        if (posi <= this.size)
+        if (posi <= this.size) {
             return this.freq[posi - 1];
-        else
+        } else {
             return -1;
+        }
     }
 
     /**
@@ -87,8 +90,8 @@ public class huffmanFreq {
      * @param posi 位置
      */
     public void insertAt(String key, int freq, int posi) {
-        String[] newKey = new String[this.size + 1];
-        int[] newFreq = new int[this.size + 1];
+        var newKey = new String[this.size + 1];
+        var newFreq = new int[this.size + 1];
         if (posi >= this.size) {
             // extend original key
             System.arraycopy(this.key, 0, newKey, 0, this.size);
@@ -122,7 +125,7 @@ public class huffmanFreq {
      */
     public void insertRugged(String key, int freq) {
         //if key already exists. add freq
-        for (int i = 0; i < this.key.length; i++) {
+        for (var i = 0; i < this.key.length; i++) {
             if (this.key[i].equals(key)) {
                 this.freq[i] += freq;
                 sortLess();
@@ -133,7 +136,7 @@ public class huffmanFreq {
         if (this.freq.length == 0) {
             insertAt(key, freq, 1);
         } else {
-            for (int posi = 1; posi <= this.size; posi++) {
+            for (var posi = 1; posi <= this.size; posi++) {
                 if (freq <= this.getFreq(posi)) {
                     insertAt(key, freq, posi - 1);
                     return;
@@ -151,7 +154,7 @@ public class huffmanFreq {
      */
     public void insertAverage(String key, int freq) {
         //if key already exists. add freq
-        for (int i = 0; i < this.key.length; i++) {
+        for (var i = 0; i < this.key.length; i++) {
             if (this.key[i].equals(key)) {
                 this.freq[i] += freq;
                 sortLess();
@@ -162,7 +165,7 @@ public class huffmanFreq {
         if (this.freq.length == 0) {
             insertAt(key, freq, 1);
         } else {
-            for (int posi = 1; posi <= this.size; posi++) {
+            for (var posi = 1; posi <= this.size; posi++) {
                 if (freq < this.getFreq(posi)) {
                     insertAt(key, freq, posi - 1);
                     return;
@@ -197,9 +200,10 @@ public class huffmanFreq {
      * @return 键位置，未找到返回-1
      */
     public int contain(String key) {
-        for (int i = 0; i < this.size; i++) {
-            if (this.key[i].equals(key))
+        for (var i = 0; i < this.size; i++) {
+            if (this.key[i].equals(key)) {
                 return i + 1;
+            }
         }
         return -1;
     }
@@ -213,7 +217,7 @@ public class huffmanFreq {
     public void swap(int posiA, int posiB) {
         if (posiA <= this.size && posiB <= this.size && posiA > 0 && posiB > 0) {
             try {
-                String newKey = this.key[posiA - 1];
+                var newKey = this.key[posiA - 1];
                 this.key[posiA - 1] = this.key[posiB - 1];
                 this.key[posiB - 1] = newKey;
 
@@ -232,8 +236,9 @@ public class huffmanFreq {
     public void sortLess() {
         for (int outer = 1; outer <= this.size; outer++) {
             for (int inner = outer; inner <= this.size; inner++) {
-                if (this.freq[inner - 1] < this.freq[outer - 1])
+                if (this.freq[inner - 1] < this.freq[outer - 1]) {
                     swap(inner, outer);
+                }
             }
         }
     }
@@ -246,9 +251,13 @@ public class huffmanFreq {
      */
     public void removeAmong(int startPosi, int endPosi) {
         int start = Math.min(startPosi, endPosi), end = Math.max(startPosi, endPosi);
-        if (start > this.size || end <= 0) return;
-        else if (end > this.size) end = this.size;
-        else if (start <= 0) start = 1;
+        if (start > this.size || end <= 0) {
+            return;
+        } else if (end > this.size) {
+            end = this.size;
+        } else if (start <= 0) {
+            start = 1;
+        }
 
         int range = end - start + 1;
         String[] newKey = new String[this.size - range];

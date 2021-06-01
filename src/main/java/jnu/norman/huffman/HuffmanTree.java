@@ -1,15 +1,15 @@
-package HuffmanTree;
+package jnu.norman.huffman;
 
-public class huffmanTree {
-    private final huffmanTreeNode root;
+public class HuffmanTree {
+    private final HuffmanTreeNode root;
 
     /**
      * 用字符频数映射表初始话Huffman树
      *
      * @param freq 字符频数映射表
      */
-    public huffmanTree(huffmanFreq freq) {
-        this.root = huffmanTreeNode.convertHuffmanTree(freq, insertMode.RUGGED);
+    public HuffmanTree(HuffmanFreq freq) {
+        this.root = HuffmanTreeNode.convertHuffmanTree(freq, HuffmanTreeNode.InsertMode.RUGGED);
     }
 
     /**
@@ -17,7 +17,7 @@ public class huffmanTree {
      *
      * @return 根节点
      */
-    public huffmanTreeNode getRoot() {
+    public HuffmanTreeNode getRoot() {
         return this.root;
     }
 
@@ -27,7 +27,7 @@ public class huffmanTree {
      * @param node 树的节点
      * @return Huffman树（String形式）
      */
-    public static String traverseIn_Stack(huffmanTreeNode node) {
-        return huffmanTreeNode.traverseIn_Stack(node);
+    public static String traverseInStack(HuffmanTreeNode node) {
+        return HuffmanTreeNode.traverseInStack(node);
     }
 }
